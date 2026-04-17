@@ -3,7 +3,6 @@ import time
 import random
 import cv2
 import numpy as np
-import pyautogui
 import sys
 import requests
 
