@@ -11,8 +11,6 @@ import requests
 # ======================
 SWITCH_IP = "192.168.40.107"
 PORT = 6000
-
-# USB CAPTURE DEVICE INDEX (0 = default, try 1 or 2 if needed)
 CAMERA_INDEX = 0
 
 WEBHOOK_URL = "https://discord.com/api/webhooks/1337242155600842762/Hx5q6P3zD7xHmp9R8dpVapxqTVvzCLnK9mtsM6UHZblAkjh0_Jd_7x1nLpbnO_f5qRLV"
@@ -76,22 +74,28 @@ def has_blue_border(frame):
     return len(contours) > 0
 
 # ======================
-# SOFT RESET
+# SOFT RESET (FIXED)
 # ======================
 def soft_reset():
-    print("No blue border detected. Pressing ABXY for soft reset.")
-    pyautogui.press('a')
-    pyautogui.press('b')
-    pyautogui.press('x')
-    pyautogui.press('y')
+    print("No blue border detected. Performing soft reset.")
+
+    send("press A")
+    send("press B")
+    send("press X")
+    send("press Y")
+    time.sleep(0.2)
+
+    send("release A")
+    send("release B")
+    send("release X")
+    send("release Y")
+
     time.sleep(1)
 
 # ======================
-# VIDEO STREAM (USB CAPTURE)
+# VIDEO STREAM (USB)
 # ======================
 cap = cv2.VideoCapture(CAMERA_INDEX)
-
-# Optional: force resolution (depends on your capture card)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
 
